@@ -53,24 +53,30 @@ app.get('/voteResult', function(req, res, next) {
 
         // console.log(ret);
 
-        var result = [0,0,0,0,0];
+        var result = [
+        { "name":"同学A", "result":0},
+        { "name":"同学B", "result":0},
+        { "name":"同学C", "result":0},
+        { "name":"同学D", "result":0},
+        { "name":"同学E", "result":0}
+        ];
 
         for(var i=0;i<ret.length;i++) {
 
           for(var j=0;j<ret[i].votes.length;j++) {
             var v = ret[i].votes[j];
             for(var k=0;k<v.length;k++) {
-              result[k] = parseInt(result[k]) + parseInt(v[k]);
+              result[k].result = parseInt(result[k].result) + parseInt(v[k]);
             }
           }
         }
 
         for(var i=0;i<5;i++) {
-          result[i] = result[i]/(ret.length*4);
-          console.log(result[i]);
+          result[i].result = result[i].result/(ret.length*4);
+          // console.log(result[i]);
         }
 
-        res.json(ret);
+        res.json(result);
     });
 });
 

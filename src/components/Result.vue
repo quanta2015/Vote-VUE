@@ -1,8 +1,44 @@
 <template>
-<div class="g-vote">
+<div class="g-result">
     <div class="g-hd">
-        xxxxxx
+        投票结果
     </div>
+    <div class="g-bd">
+      <li class="result" v-for="result in results">
+        <span class="m-name"> {{result.name}}</span>
+        <span class="m-result"> {{result.result}}</span>
+       
+      </li>
+    </div>
+
+    <div data-v-24cb2d9a="" class="g-info">
+   <div data-v-24cb2d9a="" class="u-title">
+     学期培养目标
+    <span data-v-24cb2d9a="" class="term"> 2017.02-2017.06 </span>：
+    <span data-v-24cb2d9a="" class="aim">数据挖掘系统</span>
+   </div> 
+   <div data-v-24cb2d9a="" class="u-list">
+    <div data-v-24cb2d9a="" class="u-title">
+     知识要点：
+    </div> 
+    <div data-v-24cb2d9a="" class="u-item">
+     <li data-v-24cb2d9a=""><span data-v-24cb2d9a="">1. 网络数据分析</span>
+      <!----><span data-v-24cb2d9a="" class="desc">爬虫系统</span></li>
+    </div>
+    <div data-v-24cb2d9a="" class="u-item">
+     <li data-v-24cb2d9a=""><span data-v-24cb2d9a="">2. 项目自动构架</span><span data-v-24cb2d9a="" class="sub">Gulp/Webpack</span><span data-v-24cb2d9a="" class="desc"></span></li>
+    </div>
+    <div data-v-24cb2d9a="" class="u-item">
+     <li data-v-24cb2d9a=""><span data-v-24cb2d9a="">3. MVVM项目重构</span><span data-v-24cb2d9a="" class="sub">AngularJS /React/VUE</span><span data-v-24cb2d9a="" class="desc"></span></li>
+    </div>
+    <div data-v-24cb2d9a="" class="u-item">
+     <li data-v-24cb2d9a=""><span data-v-24cb2d9a="">4. 虚拟化服务</span><span data-v-24cb2d9a="" class="sub">Docker</span><span data-v-24cb2d9a="" class="desc"></span></li>
+    </div>
+    <div data-v-24cb2d9a="" class="u-item">
+     <li data-v-24cb2d9a=""><span data-v-24cb2d9a="">5. 文档</span><span data-v-24cb2d9a="" class="sub">项目进度规划/技术日志</span><span data-v-24cb2d9a="" class="desc">100篇</span></li>
+    </div>
+   </div>
+  </div>
    
 </div>
 </template>
@@ -13,13 +49,13 @@ import api from '../api'
 export default {
   data () {
     return {
-      result: {}
+      results: {}
     }
   },
   mounted () {
     var root = this
     api.getVoteResult(this, resp => {
-      root.result = resp.body
+      root.results = resp.body
     }, respErr => {
       this.$parent.showMsg('加载数据失败！')
     })
@@ -40,10 +76,62 @@ a {
     color: #ff6600;
 }
 
+
+.g-result {
+  /*background: #e8e8e8;*/
+   font-family:"microsoft yahei";
+   padding: 10px 20px;
+}
+
+.g-hd {
+  /*background: #e8e8e8;*/
+  display: fixed;
+  top:0;
+  left: 0;
+  text-align: center;
+  font: 18px/1.5 "microsoft yahei";
+  padding: 5px;
+  font-size: 48px;
+  font-weight: 600;
+  color: #333;
+}
+
+.g-bd {
+  display: flex;
+  flex-direction: row;
+}
+
+.result {
+  background: #eee;
+  padding: 40px;
+  margin:10px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.result .m-name {
+  font-size: 24px;
+  font-weight: 600;
+  color: #666;
+}
+
+.result .m-result {
+  font-size: 48px;
+  font-weight: 600;
+  font-weight: 600;
+  color: #ff3300;
+  margin-top: 10px;
+}
+
 .g-info {
   display: flex;
   flex-direction: column;
-/*  margin-top: 30px;*/
+  margin-top: 240px;
+
+  border-top: 3px solid #e8e8e8;
 }
 
 .u-title {
@@ -67,182 +155,6 @@ a {
 .u-title .aim {
     font-weight: bold;
     color: #ff6633;
-}
-
-.u-list {
-  display: flex;
-  flex-direction: column;
-  /*margin-top: 30px;*/
-}
-
-.u-list .desc {
-  color: #ff0000;
-  font-size: 14px;
-  font-weight: 600;
-  margin-left: 10px;
-}
-
-.u-list .sub {
-  color: #00aa00;
-}
-
-.u-list .sub:before {
-  content: "（"
-}
-
-.u-list .sub:after {
-  content: "）"
-}
-
-.g-vote {
-  /*background: #e8e8e8;*/
-   font-family:"microsoft yahei";
-   padding: 10px 20px;
-}
-
-.g-hd {
-  /*background: #e8e8e8;*/
-  display: fixed;
-  top:0;
-  left: 0;
-  text-align: center;
-  font: 18px/1.5 "microsoft yahei";
-  padding: 5px;
-  font-size: 32px;
-  font-weight: 600;
-  color: #333;
-}
-
-.g-bd {
-  display: flex;
-  flex-direction: column;
-
-}
-
-.u-box {
-  display: flex;
-  flex-direction: column;
-  margin-top: 10px;
-  background: #f8f8f8;
-  min-width: 960px;
-  border-left:1px solid #eee;
-  border-right:1px solid #eee;
-}
-
-.u-box-hd {
-  padding: 10px;
-  background: #666;
-  color: #fff;
-  font-size: 20px;
-}
-
-.u-box-bd {
-  display: flex;
-  flex-direction: column;
-}
-
-.u-row {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  padding: 10px 5px;
-  border-bottom: 1px solid #e8e8e8;
-  min-width: 960px;
-}
-
-.u-item {
-  text-align: center;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
-.u-tl {
-  width: 100px;
-  text-align: center;
-}
-
-.u-ct {
-  flex: 1;
-  text-align: left;
-  min-width: 560px;
-}
-
-.code {
-  background: #666;
-  padding: 2px 5px;
-  border-radius: 3px;
-  color: #fff;
-  margin: 5px 0;
-}
-
-.title {
-  padding: 2px 5px;
-  margin:2px 5px;
-
-}
-
-.u-gr {
-    min-width: 250px;
-}
-
-.g-ft {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  background: #333;
-  height: 120px;
-  min-width: 960px;
-  margin-top: 20px;
-  margin-bottom: 80px;
-}
-
-.g-ft input {
-  height: 30px;
-  background: transparent;
-  border:none;
-  border-bottom: 2px solid #fff;
-  width: 250px;
-  font-size: 24px;
-  font-family: "microsoft yahei";
-  padding: 5px;
-  text-align: center;
-  color: #fff;
-  outline: none;
-
-}
-
-.g-ft .voter {
-  font-size: 28px;
-  color: #fff;
-  width: 120px;
-  text-align: right;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
-
-.g-ft a {
-    display: inline-block;
-    background: #41B883;
-    padding: 10px 60px;
-    color: #fff;
-    font-weight: 600;
-    font: 24px/1 "microsoft yahei";
-    text-decoration: none;
-    margin-right: 20px;
-}
-
-.g-ft .sep {
-  flex: 1;
-}
-
-.g-ft a:hover {
-  background: #41C883;
-  color: #fff;
 }
 
 </style>
